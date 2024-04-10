@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/components/sidebar";
+// import { Avatar } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex flex-row bg-gray-200 h-8">
+        <img 
+        className='h-6 w-fit p-1 mt-1 ml-2' src='/google-logo-9834.png'
+        alt='Logo'
+      />
+      {/* <Avatar showFallback src='https://images.unsplash.com/broken' className="h-8 w-8"/> */}
+
+        </div>
+        <div className="flex h-screen w-full bg-white-200">
+        <Sidebar />
+        <div className="flex flex-col w-full h-full ml-34 p-2">
+      {children}
+      </div>
+      </div>
+      </body>
     </html>
   );
 }
