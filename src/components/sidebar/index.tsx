@@ -1,6 +1,9 @@
+"use client";
+
 import React from 'react'
 
 import { ClipboardMinus, Database, LayoutDashboard, LucideIcon, UserRoundCog, Variable } from 'lucide-react';
+import SidebarItem from './item';
 
 interface ISidebarItem {
   name: string;
@@ -47,7 +50,7 @@ const items: ISidebarItem[] = [
       },
       {
         name: "Complaince",
-        path: "/reports/complaince"
+        path: "/reports/compliance"
       },
       {
         name: "Frequent Reports",
@@ -62,15 +65,15 @@ const items: ISidebarItem[] = [
   {
     name: "Data",
     icon: Database,
-    path: "/data",
+    path: "/Data",
     items: [
       {
         name: "Quickbooks",
-        path: "/data/quickbooks",
+        path: "/Data/quickbooks",
       },
       {
         name: "Netsuite",
-        path: "/data/netsuite"
+        path: "/Data/netsuite"
       },
     ],
   },
@@ -104,7 +107,7 @@ const items: ISidebarItem[] = [
       },
       {
         name: "Created Tasks",
-        path: "/task/my_tasks"
+        path: "/task/created_tasks"
       },
     ],
   },
@@ -120,12 +123,14 @@ const Sidebar = () => {
         className='h-10 w-fit' src='/google-logo-9834.png'
         alt='Logo'
       /> */}
-
+      <div className='flex flex-col space-y-1'>
       {items.map((item) => (
-        <p key={item.path}>
-          {item.name}
-        </p>
+        // <p key={item.path}>
+        //   {item.name}
+        <SidebarItem key={item.path} item={item}/>
+        // </p>
       ))}
+      </div>
       </div>
     </div>
   )
