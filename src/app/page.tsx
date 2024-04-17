@@ -6,11 +6,11 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className=" p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
+    <div className="h-screen overflow-auto p-4 grid md:grid-cols-3 grid-cols-1 gap-4">
       <Charts />
       <List />
       <Create_role />
-      <div className=" p-4 grid ">
+      <div className=" col-span-2 flex justify-end">
         <Tables />
       </div>
     </div>

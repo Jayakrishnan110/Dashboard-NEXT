@@ -7,17 +7,22 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Input,
   User,
   Chip,
   Tooltip,
   ChipProps,
   getKeyValue,
+  Button,
 } from "@nextui-org/react";
 // import {EditIcon} from "./EditIcon";
 // import {DeleteIcon} from "./DeleteIcon";
 // import {EyeIcon} from "./EyeIcon";
+// import SearchIcon from "@mui/icons-material/Search";
 import { columns, users } from "./data";
+import Switch from "@mui/material/Switch";
 import React from "react";
+import { SearchIcon } from "lucide-react";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -36,19 +41,19 @@ export default function Tables() {
         return (
           <User
             avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
             name={cellValue}
-          >
-            {user.email}
-          </User>
+          ></User>
         );
       case "role":
         return (
           <div className="flex flex-col items-stretch">
             <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
+          </div>
+        );
+      case "last_activity":
+        return (
+          <div className="flex flex-col items-stretch">
+            <p className="text-bold text-sm capitalize">{cellValue}</p>
           </div>
         );
       case "status":
@@ -65,21 +70,7 @@ export default function Tables() {
       case "actions":
         return (
           <div className="relative flex items-center">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                {/* <EyeIcon /> */}
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                {/* <EditIcon /> */}
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                {/* <DeleteIcon /> */}
-              </span>
-            </Tooltip>
+            <Switch />
           </div>
         );
       default:
@@ -88,26 +79,39 @@ export default function Tables() {
   }, []);
 
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 bg-gray-100 rounded-lg p-4">
+        <div className="flex justify-between gap-3 items-end">
+          <Input
+            isClearable
+            className="w-full sm:max-w-[44%] bg-white rounded"
+            placeholder="Search by name or email"
+            startContent={<SearchIcon />}
+          />
+          <Button className="bg-gray-800 text-white">Create user</Button>
+        </div>
+        <Table aria-label="Example table with custom cells">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+              >
+                {column.name}
+              </TableColumn>
             )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </TableHeader>
+          <TableBody items={users}>
+            {(item) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 }
